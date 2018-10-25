@@ -1,6 +1,5 @@
 package com.testtask.TestTask.Service;
 
-import com.testtask.TestTask.Dao.BookDao;
 import com.testtask.TestTask.Dao.BookDaoImpl;
 import com.testtask.TestTask.Models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +42,4 @@ public class BookServiceImpl implements BookService {
         return this.bookDao.getBooksList();
     }
 
-    public void setBookDao(BookDaoImpl bookDao) {
-        this.bookDao = bookDao;
-    }
-
-    public BookDaoImpl getBookDao() {
-        return bookDao;
-    }
 }

@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-
 
 @Controller
 public class BookController {
@@ -18,23 +16,30 @@ public class BookController {
     private BookService bookService;
 
 
-
-    //    @Autowired
-//    @RequestMapping(value = "/")
-//    @ResponseBody
-//    public List<Book> bookList(Model model) {
-//        model.addAttribute("book", new Book());
-//        model.addAttribute("getBooksList", this.bookService.getBooksList());
-//        List<Book> bookList = bookService.getBooksList();
-//        return bookList;
-//    }
-
-    @RequestMapping("/")
-    public ModelAndView dohome(){
-        ModelAndView mv = new ModelAndView("index");
-        mv.addObject("listBooks",bookService.getBooksList());
-        return mv;
+    public void setBookService(BookService bookService) {
+        this.bookService = bookService;
     }
+
+    @RequestMapping(value = "/")
+    @ResponseBody
+    public List<Book> bookList(Model model) {
+        model.addAttribute("book", new Book());
+        model.addAttribute("getBooksList", this.bookService.getBooksList());
+        List<Book> bookList = bookService.getBooksList();
+        return bookList;
+    }
+
+//    @RequestMapping("/")
+//    public ModelAndView dohome(){
+//        ModelAndView mv = new ModelAndView("index");
+//        mv.addObject("listBooks",bookService.getBooksList());
+//        return mv;
+//    }
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public String bookList(Model model) {
+//        model.addAttribute("book", new Book());
+//        model.addAttribute("getBookList", this.bookService.getBooksList());
+//        return "bookList";
 
     @RequestMapping(value = "/books/add", method = RequestMethod.POST)
     public String addBook(@ModelAttribute("book") Book book){
@@ -64,7 +69,7 @@ public class BookController {
 
     @RequestMapping("bookdata/{id}")
     public String bookData(@PathVariable("id") int id, Model model){
-        model.addAttribute("book", this.bookService.getBookById(id));
+        model.addAttribute("book", bookService.getBookById(id));
 
         return "bookdata";
     }
