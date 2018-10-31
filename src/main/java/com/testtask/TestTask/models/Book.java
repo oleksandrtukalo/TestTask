@@ -1,4 +1,4 @@
-package com.testtask.TestTask.Models;
+package com.testtask.TestTask.models;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,20 +8,27 @@ import java.util.Date;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) private int book_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name="BOOK_NAME") private String book_name;
+    @Column(name = "BOOK_NAME")
+    private String book_name;
 
-    @Temporal(TemporalType.DATE) @Column(name = "BOOK_PUBLISHED") private Date book_published;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "BOOK_PUBLISHED")
+    private Date book_published;
 
-    @Column(name="BOOK_GENRE") private String book_genre;
-    @Column(name="BOOK_RATING") private int book_rating;
-    public int getBook_id() {
-        return book_id;
+    @Column(name = "BOOK_GENRE")
+    private String book_genre;
+    @Column(name = "BOOK_RATING")
+    private int book_rating;
+
+    public int getId() {
+        return id;
     }
 
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBook_name() {
@@ -59,7 +66,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "book_id=" + book_id +
+                "id=" + id +
                 ", book_name='" + book_name + '\'' +
                 ", book_published=" + book_published +
                 ", book_genre='" + book_genre + '\'' +

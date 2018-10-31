@@ -1,7 +1,7 @@
-package com.testtask.TestTask.Service;
+package com.testtask.TestTask.service;
 
-import com.testtask.TestTask.Dao.BookDaoImpl;
-import com.testtask.TestTask.Models.Book;
+import com.testtask.TestTask.dao.BookDao;
+import com.testtask.TestTask.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,36 +10,40 @@ import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
+    private final BookDao bookDao;
+
     @Autowired
-    private BookDaoImpl bookDao;
+    public BookServiceImpl(BookDao bookDao) {
+        this.bookDao = bookDao;
+    }
 
     @Override
     @Transactional
     public void addbook(Book book) {
-        this.bookDao.addbook(book);
+        bookDao.save(book);
     }
 
     @Override
     @Transactional
     public void updatebook(Book book) {
-        this.bookDao.updatebook(book);
+        bookDao.save(book);
     }
 
     @Override
     @Transactional
-    public void removebook(int book_id) {
-        this.bookDao.removebook(book_id);
+    public void removebook(int id) {
+        bookDao.deleteById(id);
     }
 
     @Override
-    public Book getBookById(int book_id) {
-        return this.bookDao.getBookById(book_id);
+    public Book getBookById(int id) {
+        return bookDao.findById(id).get();
     }
 
     @Override
     @Transactional
     public List<Book> getBooksList() {
-        return this.bookDao.getBooksList();
+        return (List<Book>) bookDao.findAll();
     }
 
 }
