@@ -27,8 +27,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional
-    public void updateAuthor(int id) {
-        this.authorDao.updateAuthor(id);
+    public void updateAuthor(int id, Author author) {
+        this.authorDao.updateAuthor(id, author);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional
     public List<Author> getAuthorList() {
-        return (List<Author>) this.authorDao.getAuthorList();
+        return this.authorDao.getAuthorList();
     }
 
     @Override

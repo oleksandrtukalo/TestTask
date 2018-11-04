@@ -8,7 +8,7 @@ import java.util.List;
 public interface AuthorDao {
     void addAuthor(Author author);
 
-    void updateAuthor(int id);
+    void updateAuthor(int id,Author author);
 
     void removeAuthor(int id);
 

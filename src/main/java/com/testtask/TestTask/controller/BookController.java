@@ -3,7 +3,6 @@ package com.testtask.TestTask.controller;
 import com.testtask.TestTask.models.Book;
 import com.testtask.TestTask.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,8 +36,8 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public void updateBook(@PathVariable("id") int id) {
-        bookService.updateBook(id);
+    public void updateBook(@PathVariable("id") int id, @RequestBody Book book) {
+        bookService.updateBook(id, book);
     }
 
     @GetMapping("/{id}")
@@ -46,14 +45,12 @@ public class BookController {
         return bookService.getBookById(id).toString();
     }
 
-    @RequestMapping(value = "/calculate/{genre}")
-    @ResponseBody
+    @GetMapping(value = "/calculate/{genre}")
     public Integer getCalculateByGenre(@PathVariable("genre") String genre) {
         return bookService.getCalculateByGenre(genre);
     }
 
-    @RequestMapping(value = "/tasklist")
-    @ResponseBody
+    @GetMapping(value = "/taskList")
     public List<Book> bookTaskList(@ModelAttribute("book") Book book) {
         return bookService.getTaskBookList();
     }

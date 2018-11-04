@@ -41,7 +41,7 @@ public class AuthorBookController {
     }
 
     @PutMapping("/{id}")
-    public void updateAuthorBook(@PathVariable("id") int id) {
-        authorBookService.updateAuthorBook(id);
+    public void updateAuthorBook(@PathVariable("id") int id, @RequestBody AuthorBook authorBook) {
+        authorBookService.updateAuthorBook(id, authorBook);
     }
 }

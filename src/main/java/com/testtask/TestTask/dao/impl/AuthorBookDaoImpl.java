@@ -13,10 +13,8 @@ import java.util.List;
 
 @Repository
 public class AuthorBookDaoImpl implements AuthorBookDao {
-    private final int MIN_NUMBER_OF_AFFECTED_ROWS = 1;
-    private final int MIN_NUMBER_OF_UPDATED_ROWS = 1;
-    private final int MIN_NUMBER_OF_ADDED_ROWS = 1;
-    Logger logger = LoggerFactory.getLogger(AuthorBookDaoImpl.class);
+    private final int MIN_NUMBER_OF_PROCESSED_ROWS = 1;
+    private Logger logger = LoggerFactory.getLogger(AuthorBookDaoImpl.class);
     private final JdbcTemplate jdbcTemplate;
 
     public AuthorBookDaoImpl(JdbcTemplate jdbcTemplate) {
@@ -27,16 +25,16 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
     public void addAuthorBook(AuthorBook authorBook) {
         String CREATE_AUTHORBOOK_SQL = "INSERT INTO authorbook(authorid,bookid) VALUES(?,?)";
         int numberAddedRows = jdbcTemplate.update(CREATE_AUTHORBOOK_SQL, authorBook.getAuthorId(), authorBook.getBookId());
-        if (numberAddedRows >= MIN_NUMBER_OF_ADDED_ROWS) {
+        if (numberAddedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("AuthorBook successfully added. AuthorBook  details: " + authorBook);
         }
     }
 
     @Override
-    public void updateAuthorBook(int id) {
-        String UPDATE_AUTHORBOOK_SQL = "UPDATE authorbook set authorid=?,bookid=? WHERE id=?";
-        int numberUpdatedRows = jdbcTemplate.update(UPDATE_AUTHORBOOK_SQL, id);
-        if (numberUpdatedRows >= MIN_NUMBER_OF_UPDATED_ROWS) {
+    public void updateAuthorBook(int id, AuthorBook authorBook) {
+        String UPDATE_AUTHORBOOK_SQL = "UPDATE authorbook set authorid=?2,bookid=?2 WHERE id=?1";
+        int numberUpdatedRows = jdbcTemplate.update(UPDATE_AUTHORBOOK_SQL, authorBook, id);
+        if (numberUpdatedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("AuthorBook with id: " + id + " successfully updated");
         }
     }
@@ -45,7 +43,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
     public void removeAuthorBook(int id) {
         String DELETE_AUTHORBOOK_SQL = "DELETE FROM authorbook WHERE id=?";
         int numberAffectedRows = jdbcTemplate.update(DELETE_AUTHORBOOK_SQL, id);
-        if (numberAffectedRows >= MIN_NUMBER_OF_AFFECTED_ROWS) {
+        if (numberAffectedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("AuthorBook with id: " + id + " successfully removed");
         }
     }

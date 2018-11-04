@@ -14,10 +14,8 @@ import java.util.List;
 
 @Repository
 public class AuthorDaoImpl implements AuthorDao {
-    private final int MIN_NUMBER_OF_AFFECTED_ROWS = 1;
-    private final int MIN_NUMBER_OF_UPDATED_ROWS = 1;
-    private final int MIN_NUMBER_OF_ADDED_ROWS = 1;
-    Logger logger = LoggerFactory.getLogger(AuthorDaoImpl.class);
+    private final int MIN_NUMBER_OF_PROCESSED_ROWS = 1;
+    private Logger logger = LoggerFactory.getLogger(AuthorDaoImpl.class);
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -30,16 +28,16 @@ public class AuthorDaoImpl implements AuthorDao {
         String CREATE_AUTHOR_SQL = "INSERT INTO authors(name,born,gender) VALUES(?,?,?)";
         int numberAddedRows = jdbcTemplate.update(CREATE_AUTHOR_SQL, author.getName(), author.getBorn(), author.getGender());
 
-        if (numberAddedRows >= MIN_NUMBER_OF_ADDED_ROWS) {
+        if (numberAddedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("Author successfully added. Author details: " + author);
         }
     }
 
     @Override
-    public void updateAuthor(int id) {
+    public void updateAuthor(int id, Author author) {
         String UPDATE_AUTHOR_SQL = "UPDATE authors set name=?,gender=?,born=? WHERE aid=?";
-        int numberUpdatedRows = jdbcTemplate.update(UPDATE_AUTHOR_SQL,id);
-        if (numberUpdatedRows >= MIN_NUMBER_OF_UPDATED_ROWS) {
+        int numberUpdatedRows = jdbcTemplate.update(UPDATE_AUTHOR_SQL, author, id);
+        if (numberUpdatedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("Author with id: " + id + " successfully updated");
         }
     }
@@ -48,7 +46,7 @@ public class AuthorDaoImpl implements AuthorDao {
     public void removeAuthor(int id) {
         String DELETE_AUTHORS_SQL = "DELETE FROM authors WHERE aid=?";
         int numberAffectedRows = jdbcTemplate.update(DELETE_AUTHORS_SQL, id);
-        if (numberAffectedRows >= MIN_NUMBER_OF_AFFECTED_ROWS) {
+        if (numberAffectedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("Author with id: " + id + " successfully removed");
         }
     }

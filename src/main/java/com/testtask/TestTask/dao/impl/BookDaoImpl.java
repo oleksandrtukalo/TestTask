@@ -14,11 +14,9 @@ import java.util.List;
 
 @Repository
 public class BookDaoImpl implements BookDao {
-    private final int MIN_NUMBER_OF_AFFECTED_ROWS = 1;
-    private final int MIN_NUMBER_OF_UPDATED_ROWS = 1;
-    private final int MIN_NUMBER_OF_ADDED_ROWS = 1;
+    private final int MIN_NUMBER_OF_PROCESSED_ROWS = 1;
 
-    Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
+    private Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -31,16 +29,16 @@ public class BookDaoImpl implements BookDao {
     public void addBook(Book book) {
         String CREATE_BOOK_SQL = "INSERT INTO books(name,published,genre,rating) VALUES(?,?,?,?)";
         int numberAddedRows = jdbcTemplate.update(CREATE_BOOK_SQL, book.getName(), book.getPublished(), book.getGenre(), book.getRating());
-        if (numberAddedRows >= MIN_NUMBER_OF_ADDED_ROWS) {
+        if (numberAddedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("Book successfully added. Book details: " + book);
         }
     }
 
     @Override
-    public void updateBook(int id) {
-        String UPDATE_BOOK_SQL = "UPDATE books set name=?,published=?,genre=?,rating=? WHERE bid=?";
-        int numberUpdatedRows = jdbcTemplate.update(UPDATE_BOOK_SQL,id);
-        if (numberUpdatedRows >= MIN_NUMBER_OF_UPDATED_ROWS) {
+    public void updateBook(int id, Book book) {
+        String UPDATE_BOOK_SQL = "UPDATE books set name=?2,published=?2,genre=?2,rating=?2 WHERE bid=?1";
+        int numberUpdatedRows = jdbcTemplate.update(UPDATE_BOOK_SQL, book, id);
+        if (numberUpdatedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("Book with id: " + id + " successfully updated");
         }
     }
@@ -49,7 +47,7 @@ public class BookDaoImpl implements BookDao {
     public void removeBook(int id) {
         String DELETE_BOOK_SQL = "DELETE FROM books WHERE bid=?";
         int numberAffectedRows = jdbcTemplate.update(DELETE_BOOK_SQL, id);
-        if (numberAffectedRows >= MIN_NUMBER_OF_AFFECTED_ROWS) {
+        if (numberAffectedRows >= MIN_NUMBER_OF_PROCESSED_ROWS) {
             logger.info("Book with id: " + id + " successfully removed");
         }
     }
