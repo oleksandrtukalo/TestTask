@@ -44,8 +44,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Integer getCalculateByGenre() {
-        return this.bookDao.getCalculateByGenre();
+    public Integer getCalculateByGenre(String genre) {
+        return this.bookDao.getCalculateByGenre(genre);
     }
 
     @Override

@@ -20,9 +20,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
     @Override
     public void addAuthorBook(AuthorBook authorBook) {
         String CREATE_AUTHORBOOK_SQL = "INSERT INTO authorbook(authorid,bookid) VALUES(?,?)";
-
         int update = jdbcTemplate.update(CREATE_AUTHORBOOK_SQL, authorBook.getAuthorid(), authorBook.getBookid());
-
         if (update == 1) {
             System.out.println("AuthorBook is created..");
         }

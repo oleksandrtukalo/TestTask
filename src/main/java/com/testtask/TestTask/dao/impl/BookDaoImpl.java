@@ -61,8 +61,8 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Integer getCalculateByGenre() {
-        String GET_CALCULATE_SQL = "SELECT COUNT(genre) FROM books ORDER BY genre";
+    public Integer getCalculateByGenre(String genre) {
+        String GET_CALCULATE_SQL = "SELECT COUNT(*) FROM books where genre='" + genre + "'";
         return jdbcTemplate.queryForObject(GET_CALCULATE_SQL, Integer.class);
     }
 

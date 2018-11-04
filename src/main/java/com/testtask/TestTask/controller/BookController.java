@@ -48,10 +48,10 @@ public class BookController {
         return bookService.getBookById(id).toString();
     }
 
-    @RequestMapping(value = "/calculate")
+    @RequestMapping(value = "/calculate/{genre}")
     @ResponseBody
-    public Integer getCalculateByGenre(@ModelAttribute("book") Book book) {
-        return bookService.getCalculateByGenre();
+    public Integer getCalculateByGenre(@PathVariable("genre") String genre) {
+        return bookService.getCalculateByGenre(genre);
     }
 
     @RequestMapping(value = "/tasklist")

@@ -1,7 +1,6 @@
 package com.testtask.TestTask.dao;
 
 import com.testtask.TestTask.models.Author;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

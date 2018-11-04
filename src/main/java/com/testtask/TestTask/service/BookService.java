@@ -15,7 +15,7 @@ public interface BookService {
 
     public List<Book> getBookList();
 
-    public Integer getCalculateByGenre();
+    public Integer getCalculateByGenre(String genre);
 
     public List<Book> getTaskBookList();
 }
