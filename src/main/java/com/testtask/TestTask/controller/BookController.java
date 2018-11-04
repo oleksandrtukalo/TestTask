@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "/books")
 public class BookController {
 
@@ -20,30 +20,28 @@ public class BookController {
     }
 
 
-    @RequestMapping(value = "/list")
-    @ResponseBody
-    public List<Book> bookList(@ModelAttribute("book") Book book) {
+    @GetMapping(value = "/all")
+    public List<Book> bookList() {
         return bookService.getBookList();
     }
 
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addBook(@ModelAttribute("book") Book book) {
+    @PostMapping(value = "/add")
+    public void addBook(@RequestBody Book book) {
         bookService.addBook(book);
     }
 
-    @RequestMapping("/remove/{id}")
+    @DeleteMapping("/{id}")
     public void removeBook(@PathVariable("id") int id) {
         bookService.removeBook(id);
     }
 
-    @RequestMapping("/update/{id}")
-    public void updateBook(@PathVariable("id") int id, String name) {
-        bookService.updateBook(id, name);
+    @PutMapping("/{id}")
+    public void updateBook(@PathVariable("id") int id) {
+        bookService.updateBook(id);
     }
 
-    @RequestMapping("/{id}")
-    @ResponseBody
+    @GetMapping("/{id}")
     public String bookData(@PathVariable("id") int id) {
         return bookService.getBookById(id).toString();
     }

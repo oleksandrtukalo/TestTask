@@ -10,7 +10,7 @@ import java.util.Set;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bid;
+    private int bId;
 
     @Column(name = "name")
     private String name;
@@ -25,17 +25,15 @@ public class Book {
     @Column(name = "rating")
     private int rating;
 
-    //    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "books")
-//
     @ManyToMany(mappedBy = "books")
     private Set<Author> authors = new HashSet<>();
 
-    public int getBid() {
-        return bid;
+    public int getbId() {
+        return bId;
     }
 
-    public void setBid(int bid) {
-        this.bid = bid;
+    public void setbId(int bId) {
+        this.bId = bId;
     }
 
     public String getName() {
@@ -74,7 +72,7 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "authors=" + authors +
-                ", bid=" + bid +
+                ", bId=" + bId +
                 ", name='" + name + '\'' +
                 ", published=" + published +
                 ", genre='" + genre + '\'' +

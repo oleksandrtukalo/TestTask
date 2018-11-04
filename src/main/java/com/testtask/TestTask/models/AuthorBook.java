@@ -9,11 +9,11 @@ public class AuthorBook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "bookid")
-    private int bookid;
+    @Column(name = "bookId")
+    private int bookId;
 
-    @Column(name = "authorid")
-    private int authorid;
+    @Column(name = "authorId")
+    private int authorId;
 
     public int getId() {
         return id;
@@ -23,28 +23,28 @@ public class AuthorBook {
         this.id = id;
     }
 
-    public int getBookid() {
-        return bookid;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setBookid(int bookid) {
-        this.bookid = bookid;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
-    public int getAuthorid() {
-        return authorid;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthorid(int authorid) {
-        this.authorid = authorid;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     @Override
     public String toString() {
         return "AuthorBook{" +
                 "id=" + id +
-                ", bookid=" + bookid +
-                ", authorid=" + authorid +
+                ", bookId=" + bookId +
+                ", authorId=" + authorId +
                 '}';
     }
 }

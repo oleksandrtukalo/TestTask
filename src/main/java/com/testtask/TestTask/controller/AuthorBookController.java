@@ -4,12 +4,11 @@ package com.testtask.TestTask.controller;
 import com.testtask.TestTask.models.AuthorBook;
 import com.testtask.TestTask.service.AuthorBookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "/authorbook")
 public class AuthorBookController {
     private final AuthorBookService authorBookService;
@@ -20,31 +19,29 @@ public class AuthorBookController {
     }
 
 
-    @RequestMapping(value = "/list")
-    @ResponseBody
-    public List<AuthorBook> authorBookList(@ModelAttribute("authorBook") AuthorBook authorBook) {
+    @GetMapping(value = "/all")
+    public List<AuthorBook> authorBookList() {
         return authorBookService.getAuthorBookList();
     }
 
 
-    @RequestMapping("/{id}")
-    @ResponseBody
+    @GetMapping("/{id}")
     public String authorBookData(@PathVariable("id") int id) {
         return authorBookService.getAuthorBookById(id).toString();
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addAuthorBook(@ModelAttribute("authorBook") AuthorBook authorBook) {
+    @PostMapping(value = "/add")
+    public void addAuthorBook(@RequestBody AuthorBook authorBook) {
         authorBookService.addAuthorBook(authorBook);
     }
 
-    @RequestMapping("/remove/{id}")
+    @DeleteMapping("/{id}")
     public void removeAuthorBook(@PathVariable("id") int id) {
         authorBookService.removeAuthorBook(id);
     }
 
-    @RequestMapping("/update/{id}")
-    public void updateAuthorBook(@PathVariable("id") int id, int authorid) {
-        authorBookService.updateAuthorBook(id, authorid);
+    @PutMapping("/{id}")
+    public void updateAuthorBook(@PathVariable("id") int id) {
+        authorBookService.updateAuthorBook(id);
     }
 }

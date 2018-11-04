@@ -10,7 +10,7 @@ import java.util.Set;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int aid;
+    private int aId;
 
     @Column(name = "name")
     private String name;
@@ -31,12 +31,12 @@ public class Author {
     Set<Book> books = new HashSet<>();
 
 
-    public int getAid() {
-        return aid;
+    public int getaId() {
+        return aId;
     }
 
-    public void setAid(int aid) {
-        this.aid = aid;
+    public void setaId(int aId) {
+        this.aId = aId;
     }
 
     public String getName() {
@@ -66,7 +66,7 @@ public class Author {
     @Override
     public String toString() {
         return "Author{" +
-                "aid=" + aid +
+                "aId=" + aId +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", born=" + born +

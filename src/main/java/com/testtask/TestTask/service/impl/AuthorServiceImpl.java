@@ -27,8 +27,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional
-    public void updateAuthor(int id, String name) {
-        this.authorDao.updateAuthor(id, name);
+    public void updateAuthor(int id) {
+        this.authorDao.updateAuthor(id);
     }
 
     @Override

@@ -24,8 +24,8 @@ public class AuthorBookServiceImpl implements AuthorBookService {
     }
 
     @Override
-    public void updateAuthorBook(int id, int authorid) {
-        this.authorBookDao.updateAuthorBook(id, authorid);
+    public void updateAuthorBook(int id) {
+        this.authorBookDao.updateAuthorBook(id);
     }
 
     @Override

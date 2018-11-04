@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "/authors")
 public class AuthorController {
     private final AuthorService authorService;
@@ -20,41 +20,37 @@ public class AuthorController {
     }
 
 
-    @RequestMapping(value = "/list")
-    @ResponseBody
-    public List<Author> authorList(@ModelAttribute("author") Author author) {
+    @GetMapping(value = "/all")
+    public List<Author> authorList() {
         return authorService.getAuthorList();
     }
 
-    @RequestMapping("/{id}")
-    @ResponseBody
+    @GetMapping("/{id}")
     public String authorId(@PathVariable("id") int id) {
         return authorService.getAuthorById(id).toString();
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addAuthor(@ModelAttribute("author") Author author) {
+    @PostMapping(value = "/add")
+    public void addAuthor(@RequestBody Author author) {
         authorService.addAuthor(author);
     }
 
-    @RequestMapping("/remove/{id}")
+    @DeleteMapping("/{id}")
     public void removeAuthor(@PathVariable("id") String id) {
         authorService.removeAuthor(Integer.parseInt(id));
     }
 
-    @RequestMapping("/update/{id}")
-    public void updateAuthor(@PathVariable("id") int id, String name) {
-        authorService.updateAuthor(id, name);
+    @PutMapping("/{id}")
+    public void updateAuthor(@PathVariable("id") int id) {
+        authorService.updateAuthor(id);
     }
 
-    @RequestMapping(value = "/born")
-    @ResponseBody
+    @GetMapping(value = "/born")
     public List<Author> sortByBorn(@ModelAttribute("author") Author author) {
         return authorService.sortByBorn();
     }
 
-    @RequestMapping("/mostauthor")
-    @ResponseBody
+    @GetMapping("/mostAuthor")
     public String getMostAuthor(@ModelAttribute("author") Author author) {
         return authorService.getMostAuthor().toString();
     }

@@ -5,19 +5,19 @@ import com.testtask.TestTask.models.Book;
 import java.util.List;
 
 public interface BookDao {
-    public void addBook(Book book);
+    void addBook(Book book);
 
-    public void updateBook(int id, String name);
+    void updateBook(int id);
 
-    public void removeBook(int id);
+    void removeBook(int id);
 
-    public Book getBookById(int id);
+    Book getBookById(int id);
 
-    public List<Book> getBookList();
+    List<Book> getBookList();
 
-    public Integer getCalculateByGenre(String genre);
+    Integer getCalculateByGenre(String genre);
 
-    public List<Book> getTaskBookList();
+    List<Book> getTaskBookList();
 
 
 }

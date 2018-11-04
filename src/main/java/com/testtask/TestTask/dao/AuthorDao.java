@@ -6,19 +6,19 @@ import java.util.List;
 
 
 public interface AuthorDao {
-    public void addAuthor(Author author);
+    void addAuthor(Author author);
 
-    public void updateAuthor(int id, String name);
+    void updateAuthor(int id);
 
-    public void removeAuthor(int id);
+    void removeAuthor(int id);
 
-    public Author getAuthorById(int id);
+    Author getAuthorById(int id);
 
-    public List<Author> getAuthorList();
+    List<Author> getAuthorList();
 
-    public List<Author> sortByBorn();
+    List<Author> sortByBorn();
 
-    public Author getMostAuthor();
+    Author getMostAuthor();
 
 
 }

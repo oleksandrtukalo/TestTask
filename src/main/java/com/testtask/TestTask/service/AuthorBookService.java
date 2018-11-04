@@ -5,14 +5,14 @@ import com.testtask.TestTask.models.AuthorBook;
 import java.util.List;
 
 public interface AuthorBookService {
-    public void addAuthorBook(AuthorBook authorBook);
+    void addAuthorBook(AuthorBook authorBook);
 
-    public void updateAuthorBook(int id, int authorid);
+    void updateAuthorBook(int id);
 
-    public void removeAuthorBook(int id);
+    void removeAuthorBook(int id);
 
-    public AuthorBook getAuthorBookById(int id);
+    AuthorBook getAuthorBookById(int id);
 
-    public List<AuthorBook> getAuthorBookList();
+    List<AuthorBook> getAuthorBookList();
 
 }
