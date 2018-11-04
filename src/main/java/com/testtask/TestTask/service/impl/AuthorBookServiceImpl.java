@@ -1,11 +1,11 @@
-package com.testtask.TestTask.service;
+package com.testtask.TestTask.service.impl;
 
 import com.testtask.TestTask.dao.AuthorBookDao;
 import com.testtask.TestTask.models.AuthorBook;
+import com.testtask.TestTask.service.AuthorBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -17,34 +17,29 @@ public class AuthorBookServiceImpl implements AuthorBookService {
         this.authorBookDao = authorBookDao;
     }
 
+
     @Override
-    @Transactional
     public void addAuthorBook(AuthorBook authorBook) {
-        this.authorBookDao.save(authorBook);
+        this.authorBookDao.addAuthorBook(authorBook);
     }
 
     @Override
-    @Transactional
-    public void updateAuthorBook(AuthorBook authorBook) {
-        this.authorBookDao.save(authorBook);
+    public void updateAuthorBook(int id, int authorid) {
+        this.authorBookDao.updateAuthorBook(id, authorid);
     }
 
     @Override
-    @Transactional
     public void removeAuthorBook(int id) {
-        this.authorBookDao.deleteById(id);
+        this.authorBookDao.removeAuthorBook(id);
     }
 
     @Override
-    @Transactional
     public AuthorBook getAuthorBookById(int id) {
-        return this.authorBookDao.findById(id).get();
+        return this.authorBookDao.getAuthorBookById(id);
     }
 
     @Override
-    @Transactional
     public List<AuthorBook> getAuthorBookList() {
-        return (List<AuthorBook>) this.authorBookDao.findAll();
+        return this.authorBookDao.getAuthorBookList();
     }
-
 }

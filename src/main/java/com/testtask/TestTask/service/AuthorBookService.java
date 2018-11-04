@@ -7,7 +7,7 @@ import java.util.List;
 public interface AuthorBookService {
     public void addAuthorBook(AuthorBook authorBook);
 
-    public void updateAuthorBook(AuthorBook authorBook);
+    public void updateAuthorBook(int id, int authorid);
 
     public void removeAuthorBook(int id);
 

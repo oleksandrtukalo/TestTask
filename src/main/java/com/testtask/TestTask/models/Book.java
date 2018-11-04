@@ -2,75 +2,83 @@ package com.testtask.TestTask.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int bid;
 
-    @Column(name = "BOOK_NAME")
-    private String book_name;
+    @Column(name = "name")
+    private String name;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "BOOK_PUBLISHED")
-    private Date book_published;
+    @Column(name = "published")
+    private Date published;
 
-    @Column(name = "BOOK_GENRE")
-    private String book_genre;
-    @Column(name = "BOOK_RATING")
-    private int book_rating;
+    @Column(name = "genre")
+    private String genre;
 
-    public int getId() {
-        return id;
+    @Column(name = "rating")
+    private int rating;
+
+    //    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "books")
+//
+    @ManyToMany(mappedBy = "books")
+    private Set<Author> authors = new HashSet<>();
+
+    public int getBid() {
+        return bid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBid(int bid) {
+        this.bid = bid;
     }
 
-    public String getBook_name() {
-        return book_name;
+    public String getName() {
+        return name;
     }
 
-    public void setBook_name(String book_name) {
-        this.book_name = book_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getBook_published() {
-        return book_published;
+    public Date getPublished() {
+        return published;
     }
 
-    public void setBook_published(Date book_published) {
-        this.book_published = book_published;
+    public void setPublished(Date published) {
+        this.published = published;
     }
 
-    public String getBook_genre() {
-        return book_genre;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setBook_genre(String book_genre) {
-        this.book_genre = book_genre;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public int getBook_rating() {
-        return book_rating;
+    public int getRating() {
+        return rating;
     }
 
-    public void setBook_rating(int book_rating) {
-        this.book_rating = book_rating;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
-                ", book_name='" + book_name + '\'' +
-                ", book_published=" + book_published +
-                ", book_genre='" + book_genre + '\'' +
-                ", book_rating=" + book_rating +
+                "authors=" + authors +
+                ", bid=" + bid +
+                ", name='" + name + '\'' +
+                ", published=" + published +
+                ", genre='" + genre + '\'' +
+                ", rating=" + rating +
                 '}';
     }
 }

@@ -2,14 +2,15 @@ package com.testtask.TestTask.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "authors")
 public class Author {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int aid;
 
     @Column(name = "name")
     private String name;
@@ -21,12 +22,21 @@ public class Author {
     @Column(name = "born")
     private Date born;
 
-    public int getId() {
-        return id;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "authorbook",
+            joinColumns = {@JoinColumn(name = "aid")},
+            inverseJoinColumns = {@JoinColumn(name = "bid")}
+    )
+    Set<Book> books = new HashSet<>();
+
+
+    public int getAid() {
+        return aid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAid(int aid) {
+        this.aid = aid;
     }
 
     public String getName() {
@@ -56,7 +66,7 @@ public class Author {
     @Override
     public String toString() {
         return "Author{" +
-                "id=" + id +
+                "aid=" + aid +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", born=" + born +

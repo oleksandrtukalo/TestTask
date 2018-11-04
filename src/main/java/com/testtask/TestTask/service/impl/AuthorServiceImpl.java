@@ -1,7 +1,8 @@
-package com.testtask.TestTask.service;
+package com.testtask.TestTask.service.impl;
 
 import com.testtask.TestTask.dao.AuthorDao;
 import com.testtask.TestTask.models.Author;
+import com.testtask.TestTask.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,36 +22,41 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional
     public void addAuthor(Author author) {
-        this.authorDao.save(author);
+        this.authorDao.addAuthor(author);
     }
 
     @Override
     @Transactional
-    public void updateAuthor(Author author) {
-        this.authorDao.save(author);
+    public void updateAuthor(int id, String name) {
+        this.authorDao.updateAuthor(id, name);
     }
 
     @Override
     @Transactional
     public void removeAuthor(int id) {
-        this.authorDao.deleteById(id);
+        this.authorDao.removeAuthor(id);
     }
 
     @Override
     @Transactional
     public Author getAuthorById(int id) {
-        return this.authorDao.findById(id).get();
+        return this.authorDao.getAuthorById(id);
     }
 
     @Override
     @Transactional
     public List<Author> getAuthorList() {
-        return (List<Author>) this.authorDao.findAll();
+        return (List<Author>) this.authorDao.getAuthorList();
     }
 
     @Override
-    public List<Author> findByOrderByBornAsc() {
-        return this.authorDao.findByOrderByBornAsc();
+    public List<Author> sortByBorn() {
+        return this.authorDao.sortByBorn();
+    }
+
+    @Override
+    public Author getMostAuthor() {
+        return this.authorDao.getMostAuthor();
     }
 
 

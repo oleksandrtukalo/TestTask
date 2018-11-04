@@ -4,13 +4,12 @@ import com.testtask.TestTask.models.Book;
 import com.testtask.TestTask.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/books")
 public class BookController {
 
     private final BookService bookService;
@@ -21,49 +20,44 @@ public class BookController {
     }
 
 
-    @RequestMapping(value = "/books")
+    @RequestMapping(value = "/list")
     @ResponseBody
-    public List<Book> bookList(Model model) {
-        model.addAttribute("book", new Book());
-        model.addAttribute("getBooksList", this.bookService.getBooksList());
-        return bookService.getBooksList();
+    public List<Book> bookList(@ModelAttribute("book") Book book) {
+        return bookService.getBookList();
     }
 
 
-    @RequestMapping(value = "/books/add", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("book") Book book) {
-        if (book.getId() == 0) {
-            bookService.addbook(book);
-        } else {
-            bookService.updatebook(book);
-        }
-
-        return "redirect:/books";
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public void addBook(@ModelAttribute("book") Book book) {
+        bookService.addBook(book);
     }
 
-    @RequestMapping("books/remove/{id}")
-    public String removeBook(@PathVariable("id") int id) {
-        bookService.removebook(id);
-
-        return "redirect:/books";
+    @RequestMapping("/remove/{id}")
+    public void removeBook(@PathVariable("id") int id) {
+        bookService.removeBook(id);
     }
 
-    @RequestMapping("books/edit/{id}")
-    public ModelAndView editBook(@PathVariable("id") String id) {
-        ModelAndView model = new ModelAndView("books");
-        Book book = bookService.getBookById(Integer.parseInt(id));
-        List booksList = bookService.getBooksList();
-        model.addObject("book", book);
-        model.addObject("getBooksList", booksList);
-        return model;
+    @RequestMapping("/update/{id}")
+    public void updateBook(@PathVariable("id") int id, String name) {
+        bookService.updateBook(id, name);
     }
 
-    @RequestMapping("books/{id}")
+    @RequestMapping("/{id}")
     @ResponseBody
-    public String bookData(@PathVariable("id") String id) {
-        return this.bookService.getBookById(Integer.parseInt(id)).toString();
-
+    public String bookData(@PathVariable("id") int id) {
+        return bookService.getBookById(id).toString();
     }
 
+    @RequestMapping(value = "/calculate")
+    @ResponseBody
+    public Integer getCalculateByGenre(@ModelAttribute("book") Book book) {
+        return bookService.getCalculateByGenre();
+    }
+
+    @RequestMapping(value = "/tasklist")
+    @ResponseBody
+    public List<Book> bookTaskList(@ModelAttribute("book") Book book) {
+        return bookService.getTaskBookList();
+    }
 }
 
